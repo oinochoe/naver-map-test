@@ -219,42 +219,49 @@
                 content: '<div style="width:150px;text-align:center;padding:10px;">수원화성 놀러왔어? <b>"' + key.substr(0, 1) + '"</b>.</div>'
             });
 
+
             markers.push(marker);
             infoWindows.push(infoWindow);
         };
+
+        $('.tabmenu button').on('click', function() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            for (var key in MARKER_SPRITE_POSITION) {
+
+                var position = new naver.maps.LatLng(
+                    southWest.lat() + latSpan * Math.random(),
+                    southWest.lng() + lngSpan * Math.random());
+
+                var marker = new naver.maps.Marker({
+                    map: map,
+                    position: position,
+                    title: key,
+                    icon: {
+                        url: './marker.png',
+                        size: new naver.maps.Size(40, 42),
+                        anchor: new naver.maps.Point(12, 37),
+                        // origin: new naver.maps.Point(MARKER_SPRITE_POSITION[key][0], MARKER_SPRITE_POSITION[key][1])
+                        origin: new naver.maps.Point(0, 0)
+                    },
+                    zIndex: 100
+                });
+
+                var infoWindow = new naver.maps.InfoWindow({
+                    content: '<div style="width:150px;text-align:center;padding:10px;">수원화성 놀러왔어? <b>"' + key.substr(0, 1) + '"</b>.</div>'
+                });
+
+
+                markers.push(marker);
+                infoWindows.push(infoWindow);
+            };
+        });
 
         naver.maps.Event.addListener(map, 'idle', function() {
             updateMarkers(map, markers);
         });
 
-        $('.tabmenu button').on('click', function() {
-            var position = new naver.maps.LatLng(
-                southWest.lat() + latSpan * Math.random(),
-                southWest.lng() + lngSpan * Math.random());
-
-            var marker = new naver.maps.Marker({
-                map: map,
-                position: position,
-                title: key,
-                icon: {
-                    url: './marker.png',
-                    size: new naver.maps.Size(40, 42),
-                    anchor: new naver.maps.Point(12, 37),
-                    // origin: new naver.maps.Point(MARKER_SPRITE_POSITION[key][0], MARKER_SPRITE_POSITION[key][1])
-                    origin: new naver.maps.Point(0, 0)
-                },
-                zIndex: 100
-            });
-
-            var infoWindow = new naver.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:10px;">수원화성 놀러왔어? <b>"' + key.substr(0, 1) + '"</b>.</div>'
-            });
-
-            markers.push(marker);
-            infoWindows.push(infoWindow);
-            naver.maps.Event.addListener(marker, 'click', getClickHandler(markers.length - 1));
-            updateMarkers(map, markers);
-        });
 
 
         function updateMarkers(map, markers) {
