@@ -25,6 +25,7 @@ var _naverMap = (function (naverMap) {
 
     var markers = [];
     var infoWindows = [];
+    var infowindow = new naver.maps.InfoWindow();
 
     var MARKER_SPRITE_X_OFFSET = 11;
     var MARKER_SPRITE_POSITION = {
@@ -32,6 +33,32 @@ var _naverMap = (function (naverMap) {
         B0: [MARKER_SPRITE_X_OFFSET, 0],
         C0: [MARKER_SPRITE_X_OFFSET * 2, 0],
         D0: [MARKER_SPRITE_X_OFFSET * 3, 0],
+    };
+
+    var onSuccessGeolocation = function (position) {
+        var location = new naver.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
+        map.setZoom(19); // 지도의 줌 레벨을 변경합니다.
+
+        infowindow.setContent('<div style="padding:20px;">' + 'geolocation.getCurrentPosition() 위치' + '</div>');
+        infowindow.open(map, location);
+        console.log('Coordinates: ' + location.toString());
+    };
+
+    var onErrorGeolocation = function () {
+        var centerMap = map.getCenter();
+        infowindow.setContent(
+            '<div style="padding:20px;">' +
+                '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>' +
+                'latitude: ' +
+                centerMap.lat() +
+                '<br />longitude: ' +
+                centerMap.lng() +
+                '</div>',
+        );
+
+        infowindow.open(map, centerMap);
     };
 
     var updateMarkers = function (maps, markerInfo) {
@@ -78,6 +105,16 @@ var _naverMap = (function (naverMap) {
         };
     };
 
+    var agreeGeoLocation = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+        } else {
+            var center = map.getCenter();
+            infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
+            infowindow.open(map, center);
+        }
+    };
+
     naverMap.init = function () {
         naverMap.event();
         naverMap.render();
@@ -92,11 +129,11 @@ var _naverMap = (function (naverMap) {
             if (map.getMapTypeId() !== naver.maps.MapTypeId[mapTypeId]) {
                 map.setMapTypeId(naver.maps.MapTypeId[mapTypeId]); // 지도 유형 변경하기
 
-                btns.removeClass('control-on');
+                $('.buttons > input').removeClass('control-on');
                 $(this).addClass('control-on');
             }
         });
-        $('.tabmenu button').on('click', function () {
+        $('.js-tab1').on('click', function () {
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
             }
@@ -105,6 +142,10 @@ var _naverMap = (function (naverMap) {
 
         $('.js-close').on('click', function () {
             $('.popup_wrap').removeClass('on');
+        });
+
+        $('.js-currentMap').on('click', function () {
+            agreeGeoLocation();
         });
 
         naver.maps.Event.addListener(map, 'idle', function () {

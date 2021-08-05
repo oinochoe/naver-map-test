@@ -65,8 +65,8 @@
     display: flex;
     position: absolute;
     z-index: 11;
-    width: 200px;
-    height: 100px;
+    width: 100px;
+    height: 50px;
     top: 50px;
     background: white;
     color: #000;
@@ -78,6 +78,7 @@
     width: 100px;
     background: #fff;
     cursor: pointer;
+    border: 1px solid black;
 }
 
 .tabmenu button.on {
