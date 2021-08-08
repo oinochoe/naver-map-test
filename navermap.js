@@ -239,6 +239,11 @@ var _naverMap = (function (naverMap) {
             $('#pano').addClass('active');
         });
 
+        $('.js-road').on('click', function () {
+            window.open(
+                `http://map.naver.com/index.nhn?slng=126.8966655&slat=37.4830969&stext=출발지&elng=127.0276368&elat=37.4979502&etext=도착지4&menu=route&pathType=1`,
+            );
+        });
         naver.maps.Event.addListener(map, 'idle', function () {
             updateMarkers(map, markers);
             console.log('지도 움직임');
