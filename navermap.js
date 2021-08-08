@@ -1,5 +1,5 @@
 var _naverMap = (function (naverMap) {
-    'use strict';
+    ('use strict');
 
     /** styledMap 정의
      *  bg	해당하는 지도 유형의 배경 표시
@@ -13,10 +13,16 @@ var _naverMap = (function (naverMap) {
         lp	지적편집도 표현
         ctt	혼잡 교통정보 표현
         lko	한국어 라벨 표현
+
+        // mapTypes: new naver.maps.MapTypeRegistry({
+        //     normal: naver.maps.NaverStyleMapTypeOptions.getNormalMap({
+        //         overlayType: 'bg.ol.ts.pr.ctt.lko',
+        //     }),
+        // }),
      */
 
     var mapOptions = {
-        useStyleMap: true,
+        useStyleMap: false,
         scaleControl: true,
         logoControl: true,
         mapDataControl: true,
@@ -27,11 +33,6 @@ var _naverMap = (function (naverMap) {
         },
         center: new naver.maps.LatLng(37.2820716, 127.0123522),
         zoom: 18,
-        mapTypes: new naver.maps.MapTypeRegistry({
-            normal: naver.maps.NaverStyleMapTypeOptions.getNormalMap({
-                overlayType: 'bg.ol.ts.pr.ctt.lko',
-            }),
-        }),
     };
 
     var map = new naver.maps.Map('map', mapOptions);
@@ -201,7 +202,7 @@ var _naverMap = (function (naverMap) {
                 $(this).addClass('control-on');
             }
         });
-        $('.js-tab1').on('click', function () {
+        $('.js-refresh').on('click', function () {
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
             }
