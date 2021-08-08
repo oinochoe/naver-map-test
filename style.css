@@ -1,96 +1,35 @@
 @charset "utf-8";
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
 
-#map {
-    display: block;
-    width: 100%;
-    height: 100vh;
-}
+* { margin: 0; padding: 0; border: 0; }
 
-.control-btn {
-    margin: 0;
-    color: #555;
-    padding: 2px 6px;
-    background: #fff;
-    border: solid 1px #333;
-    cursor: pointer;
-    -webkit-border-radius: 5px;
-    outline: 0 none;
-    border-radius: 5px;
-    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.5) !important;
-}
+body { overflow:hidden; }
+#map { display: block; width: 100%; height: 100vh; }
 
-.control-on {
-    background-color: #2780E3;
-    color: #FFF;
-}
+#pano { display:block; width:100%; height:100vh; position:absolute !important; z-index: -1; }
+#pano.active { z-index: 99; }
 
-#wrap .buttons {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    padding: 5px;
-}
+.control-btn { margin: 0; color: #555; padding: 2px 6px; background: #fff; border: solid 1px #333; cursor: pointer; -webkit-border-radius: 5px; outline: 0 none; border-radius: 5px; box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.5) !important; }
 
-#wrap .buttons .control-btn {
-    margin: 0 5px 5px 0;
-}
+.control-on { background-color: #2780E3; color: #FFF; }
 
-.popup_wrap {
-    display: block;
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    width: 400px;
-    height: 300px;
-    background: white;
-    border: 1px solid #ccc;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-    -webkit-transition: transform .3s;
-    transition: transform .3s;
-}
+#wrap .buttons { position: absolute; top: 0; left: 0; z-index: 1000; padding: 5px; }
 
-.popup_wrap.on {
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-}
+#wrap .buttons .control-btn { margin: 0 5px 5px 0; }
 
-.tabmenu {
-    display: flex;
-    position: absolute;
-    z-index: 11;
-    width: 100px;
-    height: 50px;
-    top: 50px;
-    background: white;
-    color: #000;
-    left: 50%;
-}
+.popup_wrap { display: block; position: absolute; left: 50%; bottom: 0; width: 400px; height: 300px; background: white; border: 1px solid #ccc; -webkit-transform: translate3d(0, 100%, 0); transform: translate3d(0, 100%, 0); -webkit-transition: transform .3s; transition: transform .3s; }
 
-.tabmenu button {
-    display: block;
-    width: 100px;
-    background: #fff;
-    cursor: pointer;
-    border: 1px solid black;
-}
+.popup_wrap.on { -webkit-transform: translate3d(0, -100%, 0); transform: translate3d(0, -100%, 0); }
 
-.tabmenu button.on {
-    color: dodgerblue
-}
+.tabmenu { display: flex; position: absolute; z-index: 11; width: 100px; height: 50px; top: 50px; background: white; color: #000; left: 50%; }
 
-.autoComplete_wrapper {
-    position: absolute;
-    right: 50%;
-    top: 0;
-    z-index: 199;
-    width: 100px;
-    height: 50px;
-    background: white;
-}
+.tabmenu button { display: block; width: 100px; background: #fff; cursor: pointer; border: 1px solid black; }
+
+.tabmenu button.on { color: dodgerblue }
+
+.autoComplete_wrapper { position: absolute; right: 50%; top: 0; z-index: 199; width: 100px; height: 50px; background: white; }
+
+.road { position:absolute; left:0; top:40%; z-index:199; width:400px; height:100px; background:white; }
+
+.road input { border:1px solid black; width:100px; height:50px; }
+
+.road button { width:100px; height:50px; background:darksalmon; cursor:pointer; }

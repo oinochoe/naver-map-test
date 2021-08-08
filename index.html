@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <title>네이버 지도 테스트</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css" />
+        <link rel="stylesheet" href="./style.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>네이버 지도 테스트</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
-    <link rel="stylesheet" href="./style.css">
-</head>
+    <body>
+        <div id="wrap">
+             <div id="pano"></div>
+            <div id="map"></div>
+            <!-- TODO: 사용하려면 Styled Map의 Normal 세팅을 해제해야 함
+                 <div class="buttons">
+                <input id="NORMAL" type="button" value="일반지도" class="control-btn control-on" />
+                <input id="TERRAIN" type="button" value="지형도" class="control-btn" />
+                <input id="SATELLITE" type="button" value="위성지도" class="control-btn" />
+                <input id="HYBRID" type="button" value="겹쳐보기" class="control-btn" />
+            </div> -->
+            <div class="popup_wrap">
+                <button type="button" class="js-close">닫기</button>
+                <div class="contents">안녕?</div>
+            </div>
+            <div class="tabmenu">
+                <button type="button" class="js-tab1">맵 갱신</button>
+                <button type="button" class="js-currentMap">현재위치</button>
+                <button type="button" class="js-airplane">항공뷰</button>
+            </div>
+            <input
+                id="autoComplete"
+                type="search"
+                dir="ltr"
+                spellcheck="false"
+                autocorrect="off"
+                autocomplete="off"
+                autocapitalize="off"
+                maxlength="2048"
+                tabindex="1"
+            />
 
-<body>
-    <div id="wrap">
-        <div id="map"></div>
-        <div class="buttons">
-            <input id="NORMAL" type="button" value="일반지도" class="control-btn control-on">
-            <input id="TERRAIN" type="button" value="지형도" class="control-btn">
-            <input id="SATELLITE" type="button" value="위성지도" class="control-btn">
-            <input id="HYBRID" type="button" value="겹쳐보기" class="control-btn">
-        </div>
-        <div class="popup_wrap">
-            <button type="button" class="js-close">닫기</button>
-            <div class="contents">
-                안녕?
+            <div class="road">
+                <h2>길찾기</h2>
+                <input type="text" class="js-start" placeholder="출발" />
+                <input type="text" class="js-end" placeholder="도착" />
+                <button type="button" class="js-road">길찾기</button>
             </div>
         </div>
-        <div class="tabmenu">
-            <button type="button" class="js-tab1">맵 갱신</button>
-            <button type="button" class="js-currentMap">현재위치</button>
-        </div>
-        <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
-    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=t09l85nk5z"></script>
-    <script src="./navermap.js"></script>
-    <script>
-        _naverMap.init();
-    </script>
-</body>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=t09l85nk5z&amp;submodules=panorama"></script>
+        <script src="./navermap.js"></script>
+        <script>
+            _naverMap.init();
+        </script>
+    </body>
 </html>

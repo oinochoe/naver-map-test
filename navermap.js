@@ -1,6 +1,20 @@
 var _naverMap = (function (naverMap) {
     'use strict';
 
+    /** styledMap 정의
+     *  bg	해당하는 지도 유형의 배경 표시
+        ol	실폭 도로, 실선 도로, 행정 경계, 공원 상세, 도로시설물, 시설, 역과 같이 세밀한 요소 표현
+        ts	지하철 노선도(sw), 버스 정류장(bs)과 같이 대중교통 관련 요소 표현
+        sw	지하철 노선도만 별도 표시하고 싶을 때
+        bs	버스 정류장만 별도 표시하고 싶을 때
+        pr	거리뷰, 항공뷰, 수중뷰와 같이 파노라마 촬영 위치 관련 요소 표현
+        br	자전거 관련 요소 표현
+        ar	등산로 관련 요소 표현
+        lp	지적편집도 표현
+        ctt	혼잡 교통정보 표현
+        lko	한국어 라벨 표현
+     */
+
     var mapOptions = {
         useStyleMap: true,
         scaleControl: true,
@@ -13,6 +27,11 @@ var _naverMap = (function (naverMap) {
         },
         center: new naver.maps.LatLng(37.2820716, 127.0123522),
         zoom: 18,
+        mapTypes: new naver.maps.MapTypeRegistry({
+            normal: naver.maps.NaverStyleMapTypeOptions.getNormalMap({
+                overlayType: 'bg.ol.ts.pr.ctt.lko',
+            }),
+        }),
     };
 
     var map = new naver.maps.Map('map', mapOptions);
@@ -195,6 +214,29 @@ var _naverMap = (function (naverMap) {
 
         $('.js-currentMap').on('click', function () {
             agreeGeoLocation();
+        });
+
+        var pano = null;
+
+        function initPanorama() {
+            pano = new naver.maps.Panorama('pano', {
+                position: new naver.maps.LatLng(37.3599605, 127.1058814),
+                pov: {
+                    pan: -135,
+                    tilt: 29,
+                    fov: 100,
+                },
+                aroundControl: true,
+                aroundControlOptions: {
+                    position: naver.maps.Position.TOP_RIGHT,
+                },
+            });
+        }
+
+        naver.maps.onJSContentLoaded = initPanorama;
+
+        $('.js-airplane').on('click', function () {
+            $('#pano').addClass('active');
         });
 
         naver.maps.Event.addListener(map, 'idle', function () {
